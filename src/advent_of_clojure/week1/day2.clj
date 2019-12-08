@@ -3,21 +3,21 @@
   (:require [clojure.string :as str]))
 
 (defn replace-value [input pos value]
-  (concat (take pos input) (cons value '()) (drop (+ pos 1) input)))
+  (concat (take pos input) (cons value '()) (drop (inc pos) input)))
 
 (defn opcode-function [input offset operator]
-  (let [arg1 (nth input (nth input (+ offset 1)))
+  (let [arg1 (nth input (nth input (inc offset)))
         arg2 (nth input (nth input (+ offset 2)))
         output-pos (nth input (+ offset 3))] 
           (replace-value input output-pos (operator arg1 arg2))))
 
 (defn test1 [program offset]
-  (def opcode (nth program offset))
-  (cond
-    (= opcode 1) (test1 (opcode-function program offset +) (+ offset 4))
-    (= opcode 2) (test1 (opcode-function program offset *) (+ offset 4))
-    (= opcode 99) (first program)
-    :else (test1 program (+ offset 4))))
+  (let [opcode (nth program offset)]
+    (cond
+      (= opcode 1) (test1 (opcode-function program offset +) (+ offset 4))
+      (= opcode 2) (test1 (opcode-function program offset *) (+ offset 4))
+      (= opcode 99) (first program)
+      :else (test1 program (+ offset 4)))))
 
 (defn test2 [input]
   (for [noun (range 100) verb (range 100)

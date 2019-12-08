@@ -9,10 +9,10 @@
   (calculate-fuel input))
 
 (defn calculate-fuel-recursive [input acc]
-  (def result (#(- (int (Math/floor (quot % 3))) 2) input))
-  (cond 
-    (<= result 0) acc
-    :else (recur result (+ result acc))))
+  (let [result (#(- (int (Math/floor (quot % 3))) 2) input)]
+    (cond 
+      (<= result 0) acc
+      :else (recur result (+ result acc)))))
 
 (defn test2 [input]
   (reduce + (map #(calculate-fuel-recursive % 0) input)))

@@ -11,7 +11,7 @@
   (let [mapped-layers (map check-layer layers)]
     (let [fewest-0-key (->> mapped-layers
                             (map keys)
-                            (reduce #(into %1 %2) [])
+                            (reduce into [])
                             (sort)
                             (first))]
       (let [fewest-0-layer 

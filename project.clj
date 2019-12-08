@@ -6,4 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]]
   :main ^:skip-aot advent-of-clojure.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :plugins [[lein-kibit "0.1.8"]
+            [jonase/eastwood "0.3.6"]
+            [lein-bikeshed "0.5.2"]])

@@ -22,7 +22,7 @@
   "Returns the path of orbits between an object and the 
   Center of Mass (COM)"
   [object] 
-  (take-while #(not (= :COM %)) (iterate @orbits object)))
+  (take-while #(not= :COM %) (iterate @orbits object)))
 
 (defn test1 
   "Calculates for each key, aka every object in orbit of other, its 
