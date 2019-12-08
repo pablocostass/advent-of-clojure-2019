@@ -1,6 +1,6 @@
 (ns advent-of-clojure.week2.day8
   (:gen-class)
-  (:require [clojure.string :refer [split-lines join replace]]))
+  (:require [clojure.string :as str]))
 
 (defn check-layer
   "Checks if a layer has the character `\0`
@@ -44,22 +44,22 @@
     (->> stacked-layers
          (map (fn [pixel] (first (drop-while #(= % \2) pixel))))
          (partition 25)
-         (map #(apply str %))
-         (join "\n"))))
+         (map str/join)
+         (str/join "\n"))))
 
 (defn test2
-  "Replaces the black pixels (the \0s) with spaces
-  and the white pixels (the \1s) with hashtags 
+  "Replaces the black pixels (the \0 s) with spaces
+  and the white pixels (the \1 s) with hashtags 
   for ease of readibility."
   [layers]
   (let [stacked-layers (stack-layers layers)]
-    (replace
-      (replace stacked-layers #"1" "#") #"0" " ")))
+    (str/replace
+      (str/replace stacked-layers #"1" "#") #"0" " ")))
 
 (defn day8 []
   (let [input (->> "resources/day8.txt"
                    (slurp)
-                   (split-lines)
+                   (str/split-lines)
                    (first)
                    (partition (* 25 6)))]
     (println (str "Day 8:\tTest1: " (test1 input) "\tTest2: (down below)\n\n" (test2 input) "\n"))))
